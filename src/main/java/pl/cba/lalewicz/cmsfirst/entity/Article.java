@@ -2,11 +2,9 @@ package pl.cba.lalewicz.cmsfirst.entity;
 
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Article {
@@ -19,7 +17,18 @@ public class Article {
     private String description;
     private Date publicationDate;
 
+    @ManyToMany
+    private List<Category> categoryList;
 
+    public Article() {
+    }
+
+    public Article(String title, String description, Date publicationDate, List<Category> categoryList) {
+        this.title = title;
+        this.description = description;
+        this.publicationDate = publicationDate;
+        this.categoryList = categoryList;
+    }
 
     public Long getId() {
         return id;
@@ -51,5 +60,13 @@ public class Article {
 
     public void setPublicationDate(Date publicationDate) {
         this.publicationDate = publicationDate;
+    }
+
+    public List<Category> getCategoryList() {
+        return categoryList;
+    }
+
+    public void setCategoryList(List<Category> categoryList) {
+        this.categoryList = categoryList;
     }
 }
