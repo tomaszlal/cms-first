@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import pl.cba.lalewicz.cmsfirst.entity.Article;
 import pl.cba.lalewicz.cmsfirst.repository.ArticleDao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,8 +17,17 @@ public class ArticleService {
     @Autowired
     private ArticleDao articleDao;
 
-    public Page<Article> getArticles(){
-        return articleDao.findAll(PageRequest.of(0,10));
+    public Page<Article> getArticles(int page, int size){
+        return articleDao.findAll(PageRequest.of(page,size));
+    }
+
+    public List<Article> getAllArticles(){
+        List<Article> articleList = new ArrayList<>();
+        Iterable<Article> articleIterable = articleDao.findAll();
+        for (Article article:articleIterable) {
+            articleList.add(article);
+        }
+        return articleList;
     }
 
     public Article addArticle(Article article){

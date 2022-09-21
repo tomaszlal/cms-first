@@ -1,9 +1,8 @@
 package pl.cba.lalewicz.cmsfirst.entity;
 
 
-
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -14,8 +13,9 @@ public class Article {
     private Long id;
 
     private String title;
+    @Column(columnDefinition = "TEXT")
     private String description;
-    private Date publicationDate;
+    private LocalDate publicationDate;
 
     @ManyToMany
     private List<Category> categoryList;
@@ -23,7 +23,7 @@ public class Article {
     public Article() {
     }
 
-    public Article(String title, String description, Date publicationDate, List<Category> categoryList) {
+    public Article(String title, String description, LocalDate publicationDate, List<Category> categoryList) {
         this.title = title;
         this.description = description;
         this.publicationDate = publicationDate;
@@ -54,11 +54,11 @@ public class Article {
         this.description = description;
     }
 
-    public Date getPublicationDate() {
+    public LocalDate getPublicationDate() {
         return publicationDate;
     }
 
-    public void setPublicationDate(Date publicationDate) {
+    public void setPublicationDate(LocalDate publicationDate) {
         this.publicationDate = publicationDate;
     }
 
