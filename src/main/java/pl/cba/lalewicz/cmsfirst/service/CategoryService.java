@@ -5,11 +5,17 @@ import org.springframework.stereotype.Service;
 import pl.cba.lalewicz.cmsfirst.entity.Category;
 import pl.cba.lalewicz.cmsfirst.repository.CategoryDao;
 
+import java.util.List;
+
 @Service
 public class CategoryService {
 
     @Autowired
     private CategoryDao categoryDao;
+
+    public List<Category> getAllCategories(){
+        return categoryDao.findAll();
+    }
 
     public Category addNewCategory(Category category) {
         return categoryDao.save(category);
