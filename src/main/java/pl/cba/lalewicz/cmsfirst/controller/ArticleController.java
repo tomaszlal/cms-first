@@ -2,11 +2,9 @@ package pl.cba.lalewicz.cmsfirst.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.cba.lalewicz.cmsfirst.entity.Article;
+import pl.cba.lalewicz.cmsfirst.entity.Category;
 import pl.cba.lalewicz.cmsfirst.service.ArticleService;
 
 import java.util.List;
@@ -30,4 +28,16 @@ public class ArticleController {
     public List<Article> getAllArticles() {
         return articleService.getAllArticles();
     }
-}
+
+
+    @PostMapping("/addarticle")
+    public Article saveArticle(@RequestBody Article article){
+        return articleService.addArticle(article);
+    }
+
+
+    @GetMapping("/articlebycategory")
+    public Page<Article> getArticlesByCategory(@RequestBody List<Category> categoryList, @RequestParam("page") int page, @RequestParam("size") int size){
+        return articleService.getArticlesByCategory(categoryList,page,size);
+    }
+ }

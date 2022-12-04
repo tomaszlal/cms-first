@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.cba.lalewicz.cmsfirst.entity.Article;
+import pl.cba.lalewicz.cmsfirst.entity.Category;
 import pl.cba.lalewicz.cmsfirst.repository.ArticleDao;
 
 import java.util.ArrayList;
@@ -33,4 +34,9 @@ public class ArticleService {
     public Article addArticle(Article article){
         return articleDao.save(article);
     }
+
+    public Page<Article> getArticlesByCategory(List<Category> categoryList, int page, int size) {
+        return articleDao.findByCategoryListIn(categoryList, PageRequest.of(page,size));
+    }
+
 }

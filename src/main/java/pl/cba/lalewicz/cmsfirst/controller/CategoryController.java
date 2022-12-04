@@ -1,9 +1,7 @@
 package pl.cba.lalewicz.cmsfirst.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.cba.lalewicz.cmsfirst.entity.Category;
 import pl.cba.lalewicz.cmsfirst.service.CategoryService;
 
@@ -19,5 +17,10 @@ public class CategoryController {
     @GetMapping("/allcategories")
     public List<Category> getAllCategories() {
         return categoryService.getAllCategories();
+    }
+
+    @PostMapping("/addcategory")
+    public Category saveCategory(@RequestBody Category category) {
+        return categoryService.addNewCategory(category);
     }
 }

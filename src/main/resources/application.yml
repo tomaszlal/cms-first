@@ -4,7 +4,7 @@ spring:
   datasource:
     password: ZAQ123edc
     username: cms_user
-    url: jdbc:mysql://localhost:3306/cms_01
+    url: jdbc:mysql://localhost:3306/cms_02
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
