@@ -36,7 +36,7 @@ public class ArticleController {
     }
 
 
-    @GetMapping("/articlebycategory")
+    @PostMapping("/articlebycategory")
     public Page<Article> getArticlesByCategory(@RequestBody List<Category> categoryList, @RequestParam("page") int page, @RequestParam("size") int size){
         return articleService.getArticlesByCategory(categoryList,page,size);
     }

@@ -69,4 +69,12 @@ public class Article {
     public void setCategoryList(List<Category> categoryList) {
         this.categoryList = categoryList;
     }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", categoryList=" + categoryList +
+                '}';
+    }
 }

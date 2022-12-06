@@ -12,5 +12,6 @@ import java.util.List;
 @Repository
 public interface ArticleDao extends PagingAndSortingRepository<Article, Long> {
 
-    public Page<Article> findByCategoryListIn(List<Category> category, Pageable pageable);
+    public Page<Article> findByCategoryListIn(List<Category> category, Pageable pageable); //test ale powielał artykuły
+    public List<Article> findByCategoryListIn(List<Category> category);
 }
