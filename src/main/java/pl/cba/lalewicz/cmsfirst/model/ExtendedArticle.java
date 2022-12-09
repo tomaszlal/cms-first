@@ -1,33 +1,26 @@
-package pl.cba.lalewicz.cmsfirst.entity;
+package pl.cba.lalewicz.cmsfirst.model;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+import pl.cba.lalewicz.cmsfirst.entity.Category;
+import pl.cba.lalewicz.cmsfirst.utils.MyTools;
 
-
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity
-public class Article {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class ExtendedArticle {
     private Long id;
-
     private String title;
-
-    @Column(columnDefinition = "TEXT")
+    private String shortDescription;
     private String description;
     private LocalDate publicationDate;
-
-    @ManyToMany
     private List<Category> categoryList;
 
-    public Article() {
-    }
-
-    public Article(String title, String description, LocalDate publicationDate, List<Category> categoryList) {
+    public ExtendedArticle(Long id, String title, String description, LocalDate publicationDate, List<Category> categoryList) {
+        this.id = id;
         this.title = title;
-       this.description = description;
+        this.shortDescription = MyTools.clearHtmlTags(description);
+        this.description = description;
         this.publicationDate = publicationDate;
         this.categoryList = categoryList;
     }
@@ -46,6 +39,14 @@ public class Article {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
     }
 
     public String getDescription() {
@@ -70,13 +71,5 @@ public class Article {
 
     public void setCategoryList(List<Category> categoryList) {
         this.categoryList = categoryList;
-    }
-
-    @Override
-    public String toString() {
-        return "Article{" +
-                "id=" + id +
-                ", categoryList=" + categoryList +
-                '}';
     }
 }

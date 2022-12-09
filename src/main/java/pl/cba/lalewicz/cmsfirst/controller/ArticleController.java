@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import pl.cba.lalewicz.cmsfirst.entity.Article;
 import pl.cba.lalewicz.cmsfirst.entity.Category;
+import pl.cba.lalewicz.cmsfirst.model.ExtendedArticle;
 import pl.cba.lalewicz.cmsfirst.service.ArticleService;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class ArticleController {
 
     @GetMapping("/articles")
     // http://localhost:9292/articles?page=1&size=2
-    public Page<Article> getArticles(@RequestParam("page") int page, @RequestParam("size") int size) {
+    public Page<ExtendedArticle> getArticles(@RequestParam("page") int page, @RequestParam("size") int size) {
         return articleService.getArticles(page,size);
     }
 
@@ -37,7 +38,7 @@ public class ArticleController {
 
 
     @PostMapping("/articlebycategory")
-    public Page<Article> getArticlesByCategory(@RequestBody List<Category> categoryList, @RequestParam("page") int page, @RequestParam("size") int size){
+    public Page<ExtendedArticle> getArticlesByCategory(@RequestBody List<Category> categoryList, @RequestParam("page") int page, @RequestParam("size") int size){
         return articleService.getArticlesByCategory(categoryList,page,size);
     }
  }

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.cba.lalewicz.cmsfirst.entity.Article;
 import pl.cba.lalewicz.cmsfirst.entity.Category;
+import pl.cba.lalewicz.cmsfirst.model.ExtendedArticle;
 import pl.cba.lalewicz.cmsfirst.repository.ArticleDao;
 
 import java.util.ArrayList;
@@ -21,8 +22,18 @@ public class ArticleService {
     @Autowired
     private ArticleDao articleDao;
 
-    public Page<Article> getArticles(int page, int size){
-        return articleDao.findAll(PageRequest.of(page,size));
+    public Page<ExtendedArticle> getArticles(int page, int size){
+        List<Article> articles = (List<Article>) articleDao.findAll();
+        List<ExtendedArticle> extendedArticles = new ArrayList<>();// obiekt extendedArticle zawiera dodatkowe pole shotdescription wyczyszczone ze znacznikóœ html
+        articles.forEach(article -> {
+            extendedArticles.add(new ExtendedArticle(article.getId(), article.getTitle(), article.getDescription(), article.getPublicationDate(), article.getCategoryList()));
+        });
+        PageRequest pagable = PageRequest.of(page, size);
+        int start = (int) pagable.getOffset();
+        int end = Math.min((start + pagable.getPageSize()), extendedArticles.size());
+        return new PageImpl<ExtendedArticle>(extendedArticles.subList(start,end), pagable, extendedArticles.size());
+
+
     }
 
     public List<Article> getAllArticles(){
@@ -38,17 +49,22 @@ public class ArticleService {
         return articleDao.save(article);
     }
 
-    public Page<Article> getArticlesByCategory(List<Category> categoryList, int page, int size) {
+    public Page<ExtendedArticle> getArticlesByCategory(List<Category> categoryList, int page, int size) {
 //        Page<Article> byCategoryList = articleDao.findByCategoryListIn(categoryList, PageRequest.of(page, size)); //poprzednia wersja powielała artykuły
         List<Article> byCategoryList = articleDao.findByCategoryListIn(categoryList); //lista powtarza elementy
 //        System.out.println("all art  "+byCategoryList);
-        ArrayList<Article> uniqueList = new ArrayList<>(new HashSet<>(byCategoryList)); //unikalna lista
-//        System.out.println("unikalna "+uniqueList);
+        List<Article> uniqueList = new ArrayList<>(new HashSet<>(byCategoryList)); //unikalna lista
+        List<ExtendedArticle> extendedArticles = new ArrayList<>();// obiekt extendedArticle zawiera dodatkowe pole shotdescription wyczyszczone ze znacznikóœ html
+        uniqueList.forEach(article -> {
+            extendedArticles.add(new ExtendedArticle(article.getId(), article.getTitle(), article.getDescription(), article.getPublicationDate(), article.getCategoryList()));
+        });
+
+//        System.out.println("unikalna "+extendedArticles);
         PageRequest pagable = PageRequest.of(page, size);
         int start = (int) pagable.getOffset();
-        int end = Math.min((start + pagable.getPageSize()), uniqueList.size());
+        int end = Math.min((start + pagable.getPageSize()), extendedArticles.size());
 //        System.out.println("poczatek :"+start+" | koniec: "+end+" | rozmiar listy : "+uniqueList.size());
-        Page<Article> newPagesByCategoryList = new PageImpl<Article>(uniqueList.subList(start,end), pagable, uniqueList.size());
+        Page<ExtendedArticle> newPagesByCategoryList = new PageImpl<ExtendedArticle>(extendedArticles.subList(start,end), pagable, extendedArticles.size());
 //        System.out.println(newPagesByCategoryList.getTotalElements());
 //        System.out.println(newPagesByCategoryList.getContent());
         return newPagesByCategoryList;
