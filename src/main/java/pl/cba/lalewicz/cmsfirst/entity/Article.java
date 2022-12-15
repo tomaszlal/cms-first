@@ -22,14 +22,25 @@ public class Article {
     @ManyToMany
     private List<Category> categoryList;
 
+    @ManyToMany
+    private List<FileData> fileDataList;
+
     public Article() {
     }
 
     public Article(String title, String description, LocalDate publicationDate, List<Category> categoryList) {
         this.title = title;
-       this.description = description;
+        this.description = description;
         this.publicationDate = publicationDate;
         this.categoryList = categoryList;
+    }
+
+    public Article(String title, String description, LocalDate publicationDate, List<Category> categoryList, List<FileData> fileDataList) {
+        this.title = title;
+        this.description = description;
+        this.publicationDate = publicationDate;
+        this.categoryList = categoryList;
+        this.fileDataList = fileDataList;
     }
 
     public Long getId() {
@@ -70,6 +81,14 @@ public class Article {
 
     public void setCategoryList(List<Category> categoryList) {
         this.categoryList = categoryList;
+    }
+
+    public List<FileData> getFileDataList() {
+        return fileDataList;
+    }
+
+    public void setFileDataList(List<FileData> fileDataList) {
+        this.fileDataList = fileDataList;
     }
 
     @Override

@@ -8,3 +8,5 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+myConfig:
+    folderPath: /home/tomasz/storage_to_cms/
