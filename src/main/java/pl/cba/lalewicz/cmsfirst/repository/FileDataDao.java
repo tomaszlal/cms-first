@@ -5,10 +5,13 @@ import org.springframework.stereotype.Repository;
 import pl.cba.lalewicz.cmsfirst.entity.FileData;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 @Repository
 public interface FileDataDao extends JpaRepository<FileData,Long> {
 
     Optional<ArrayList<FileData>> findAllByName(String name);
     Optional<FileData> findByName(String name);
+
+//    List<FileData> findAllOrderById();
 }

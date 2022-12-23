@@ -8,5 +8,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  servlet:
+    multipart:
+        max-file-size: 10MB
 myConfig:
-    folderPath: /home/tomasz/storage_to_cms/
+    folderPath: /var/www/html/storage/
+    folder: /storage/

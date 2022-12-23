@@ -12,14 +12,18 @@ public class FileData {
     private String name;
     private String filePath;
     private String type;
+    private String description;
+
+    //dodac description
 
     public FileData() {
     }
 
-    public FileData(String name, String filePath, String type) {
+    public FileData(String name, String filePath, String type, String description) {
         this.name = name;
         this.filePath = filePath;
         this.type = type;
+        this.description = description;
     }
 
     public Long getId() {
@@ -52,5 +56,13 @@ public class FileData {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

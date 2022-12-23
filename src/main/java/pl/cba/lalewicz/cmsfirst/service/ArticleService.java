@@ -24,9 +24,10 @@ public class ArticleService {
 
     public Page<ExtendedArticle> getArticles(int page, int size){
         List<Article> articles = (List<Article>) articleDao.findAll();
-        List<ExtendedArticle> extendedArticles = new ArrayList<>();// obiekt extendedArticle zawiera dodatkowe pole shotdescription wyczyszczone ze znacznikóœ html
+        articles.sort(((o1, o2) -> o2.getPublicationDate().compareTo(o1.getPublicationDate())));
+        List<ExtendedArticle> extendedArticles = new ArrayList<>();// obiekt extendedArticle zawiera dodatkowe pole shortdescription wyczyszczone ze znacznikóœ html
         articles.forEach(article -> {
-            extendedArticles.add(new ExtendedArticle(article.getId(), article.getTitle(), article.getDescription(), article.getPublicationDate(), article.getCategoryList()));
+            extendedArticles.add(new ExtendedArticle(article.getId(), article.getTitle(), article.getDescription(), article.getPublicationDate(), article.getCategoryList(),article.getFileDataList()));
         });
         PageRequest pagable = PageRequest.of(page, size);
         int start = (int) pagable.getOffset();
@@ -54,12 +55,15 @@ public class ArticleService {
         List<Article> byCategoryList = articleDao.findByCategoryListIn(categoryList); //lista powtarza elementy
 //        System.out.println("all art  "+byCategoryList);
         List<Article> uniqueList = new ArrayList<>(new HashSet<>(byCategoryList)); //unikalna lista
+        //sortowanie listy po datach
+        uniqueList.sort(((o1, o2) -> o2.getPublicationDate().compareTo(o1.getPublicationDate())));
         List<ExtendedArticle> extendedArticles = new ArrayList<>();// obiekt extendedArticle zawiera dodatkowe pole shotdescription wyczyszczone ze znacznikóœ html
         uniqueList.forEach(article -> {
-            extendedArticles.add(new ExtendedArticle(article.getId(), article.getTitle(), article.getDescription(), article.getPublicationDate(), article.getCategoryList()));
+            extendedArticles.add(new ExtendedArticle(article.getId(), article.getTitle(), article.getDescription(), article.getPublicationDate(), article.getCategoryList(), article.getFileDataList()));
         });
 
 //        System.out.println("unikalna "+extendedArticles);
+        //https://stackoverflow.com/questions/2784514/sort-arraylist-of-custom-objects-by-property
         PageRequest pagable = PageRequest.of(page, size);
         int start = (int) pagable.getOffset();
         int end = Math.min((start + pagable.getPageSize()), extendedArticles.size());

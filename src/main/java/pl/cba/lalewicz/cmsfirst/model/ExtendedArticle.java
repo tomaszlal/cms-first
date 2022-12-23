@@ -3,6 +3,7 @@ package pl.cba.lalewicz.cmsfirst.model;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import pl.cba.lalewicz.cmsfirst.entity.Category;
+import pl.cba.lalewicz.cmsfirst.entity.FileData;
 import pl.cba.lalewicz.cmsfirst.utils.MyTools;
 
 import java.time.LocalDate;
@@ -15,14 +16,17 @@ public class ExtendedArticle {
     private String description;
     private LocalDate publicationDate;
     private List<Category> categoryList;
+    private List<FileData> fileDataList;
 
-    public ExtendedArticle(Long id, String title, String description, LocalDate publicationDate, List<Category> categoryList) {
+
+    public ExtendedArticle(Long id, String title, String description, LocalDate publicationDate, List<Category> categoryList,List<FileData> fileDataList)  {
         this.id = id;
         this.title = title;
         this.shortDescription = MyTools.clearHtmlTags(description);
         this.description = description;
         this.publicationDate = publicationDate;
         this.categoryList = categoryList;
+        this.fileDataList = fileDataList;
     }
 
     public Long getId() {
@@ -71,5 +75,13 @@ public class ExtendedArticle {
 
     public void setCategoryList(List<Category> categoryList) {
         this.categoryList = categoryList;
+    }
+
+    public List<FileData> getFileDataList() {
+        return fileDataList;
+    }
+
+    public void setFileDataList(List<FileData> fileDataList) {
+        this.fileDataList = fileDataList;
     }
 }
