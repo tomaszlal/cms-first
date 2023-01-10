@@ -14,4 +14,7 @@ public interface ArticleDao extends PagingAndSortingRepository<Article, Long> {
 
     public Page<Article> findByCategoryListIn(List<Category> category, Pageable pageable); //test ale powielał artykuły
     public List<Article> findByCategoryListIn(List<Category> category);
+
+    public  List<Article> findByTitleContaining(String containing);
+    public List<Article> findByDescriptionContaining(String containing);
 }

@@ -84,4 +84,12 @@ public class ExtendedArticle {
     public void setFileDataList(List<FileData> fileDataList) {
         this.fileDataList = fileDataList;
     }
+
+    @Override
+    public String toString() {
+        return "ExtendedArticle{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                '}';
+    }
 }

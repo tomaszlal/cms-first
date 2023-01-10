@@ -93,4 +93,9 @@ public class TestController {
 //        articleService.addArticle(article5);
 //    }
 
+    // test search
+//    @PostConstruct
+//    public void testSearchData(){
+//        articleService.serchInArticles("aplikacje");
+//    }
 }

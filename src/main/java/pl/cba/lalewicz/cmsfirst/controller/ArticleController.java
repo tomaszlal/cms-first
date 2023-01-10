@@ -36,9 +36,31 @@ public class ArticleController {
         return articleService.addArticle(article);
     }
 
+    @PutMapping("/updatearticle")
+    public Article updateArticle(@RequestBody Article article) {
+        return articleService.updateArticle(article);
+    }
+
 
     @PostMapping("/articlebycategory")
     public Page<ExtendedArticle> getArticlesByCategory(@RequestBody List<Category> categoryList, @RequestParam("page") int page, @RequestParam("size") int size){
         return articleService.getArticlesByCategory(categoryList,page,size);
+    }
+
+    @DeleteMapping("/deletearticle/{id}")
+    public List<Article> deleteArticle(@PathVariable Long id){
+        articleService.deleteArticle(id);
+        return articleService.getAllArticles();
+    }
+
+    @GetMapping("/search")
+    public Page<ExtendedArticle> serchTextInArticle(@RequestParam("searchtext") String searchText, @RequestParam("page") int page, @RequestParam("size") int size) {
+
+        return articleService.serchInArticles(searchText,page,size);
+    }
+
+    @GetMapping("/changeiparticle")
+    public void changeIp(@RequestParam("oldip") String oldIp, @RequestParam("newip") String newIp ) {
+        articleService.changeIpInArticle(oldIp,newIp);
     }
  }

@@ -24,4 +24,9 @@ public class FileDataController {
     public List<FileData> getListOfFile() {
         return fileDataService.getListOfFile();
     }
+
+    @GetMapping("/changeipfile")
+    public void changeIp(@RequestParam("oldip") String oldIp, @RequestParam("newip") String newIp ) {
+        fileDataService.changeIp(oldIp,newIp);
+    }
 }
